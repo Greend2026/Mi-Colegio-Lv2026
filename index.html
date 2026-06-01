@@ -18422,8 +18422,15 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             }
             
             if (window.innerWidth <= 768 && rolActual !== 'Kiosko' && rolActual !== 'KioskoDocente') { document.getElementById('sidebar').classList.remove('show-mobile'); document.getElementById('sidebarOverlay').classList.remove('show-overlay'); }
-            if(nombreHoja) cargarTabla(nombreHoja, false); 
-            
+            if(nombreHoja) cargarTabla(nombreHoja, false);
+
+            // === NUEVO: Pre-carga de datos para el Escáner QR (Evitar Duplicados) ===
+            if(idVista === 'v-qr') {
+                cargarTabla('Asistencia_Auxiliar', true, true);
+                cargarTabla('Registro_Asistencia', true, true);
+                cargarTabla('Asistencia_Docentes', true, true);
+            }
+            // ======================================================================
             
             if(idVista === 'v-permisos') {
                 document.querySelectorAll('.admin-aux-btn').forEach(btn => {
@@ -19465,17 +19472,29 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
         // === NUEVO: SISTEMA DE AUTOREFRESCO SILENCIOSO (Cada 20 segundos) ===
         setInterval(async () => {
-            // Solo si el usuario está viendo uno de estos dos menús
-            if (window.hojaActualVisible === 'Asistencia_Docentes' || window.hojaActualVisible === 'Registro_Asistencia') {
+            let esVistaQR = !document.getElementById('v-qr').classList.contains('d-none');
+
+            // Solo si el usuario está viendo uno de estos dos menús o el escáner
+            if (window.hojaActualVisible === 'Asistencia_Docentes' || window.hojaActualVisible === 'Registro_Asistencia' || esVistaQR) {
                 // Solo si no hay modales abiertos (para no interrumpir edición)
                 if (document.querySelectorAll('.modal.show').length === 0) {
-                    await cargarTabla(window.hojaActualVisible, true, true);
+                    
+                    if (esVistaQR) {
+                        // En el escáner actualizamos todo lo relevante a asistencia
+                        await cargarTabla('Asistencia_Auxiliar', true, true);
+                        await cargarTabla('Registro_Asistencia', true, true);
+                        await cargarTabla('Asistencia_Docentes', true, true);
+                    } else {
+                        await cargarTabla(window.hojaActualVisible, true, true);
+                    }
 
-                    // Re-aplicar filtros de búsqueda actuales
-                    if (window.hojaActualVisible === 'Asistencia_Docentes') {
-                        filtrarAsistencias('tb-Asistencia_Docentes', 'buscar-adoc-dni', 'buscar-adoc-fecha');
-                    } else if (window.hojaActualVisible === 'Registro_Asistencia') {
-                        filtrarAsistencias('tb-Registro_Asistencia', 'buscar-asis-dni', 'buscar-asis-fecha');
+                    // Re-aplicar filtros de búsqueda actuales si no estamos en QR
+                    if (!esVistaQR) {
+                        if (window.hojaActualVisible === 'Asistencia_Docentes') {
+                            filtrarAsistencias('tb-Asistencia_Docentes', 'buscar-adoc-dni', 'buscar-adoc-fecha');
+                        } else if (window.hojaActualVisible === 'Registro_Asistencia') {
+                            filtrarAsistencias('tb-Registro_Asistencia', 'buscar-asis-dni', 'buscar-asis-fecha');
+                        }
                     }
                 }
             }
@@ -20660,7 +20679,19 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
             // === VERIFICACIÓN LOCAL DE DUPLICADOS ===
             let yaEscaneadoLocal = false;
-            let hojaCheck = (modo === 'docente') ? 'Asistencia_Docentes' : 'Asistencia_Auxiliar';
+            let hojaCheck = 'Asistencia_Auxiliar'; // Por defecto
+            
+            if (modo === 'docente') {
+                hojaCheck = 'Asistencia_Docentes';
+            } else {
+                // Modo Estudiante: Verificamos según quién escanea
+                if (rolActual === 'Docente') {
+                    hojaCheck = 'Registro_Asistencia';
+                } else {
+                    // Auxiliar o Administrador (en puerta)
+                    hojaCheck = 'Asistencia_Auxiliar';
+                }
+            }
             
             if (datosMemoria[hojaCheck]) {
                 // Normalizar fecha hoy para comparación robusta
@@ -20723,6 +20754,16 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             fetchAPI(payload).then(r => {
                 if(r.exito) {
                     showScanToast(r.mensaje, "success", { nombres: r.alumno.nombres, gradoSec: r.alumno.gradoSec });
+                    
+                    // === NUEVO: Actualización instantánea de memoria local para evitar duplicados por lag ===
+                    if (datosMemoria[hojaCheck]) {
+                        let dummyRow = [];
+                        dummyRow[3] = dniPadded; // DNI
+                        dummyRow[1] = payload.fecha; // Fecha
+                        if (modo === 'docente') dummyRow[5] = payload.tipoMarca; // Tipo de Marca
+                        datosMemoria[hojaCheck].push(dummyRow);
+                    }
+
                     if (modo === 'docente') cargarTabla('Asistencia_Docentes', true, true);
                     else { cargarTabla('Registro_Asistencia', true, true); cargarTabla('Asistencia_Auxiliar', true, true); }
                 } else if (r.tipo === 'warning') {
