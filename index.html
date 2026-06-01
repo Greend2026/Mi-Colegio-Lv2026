@@ -1872,6 +1872,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
 
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
+
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
             if(loading) loading.classList.remove('d-none');
@@ -3890,6 +3895,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             let gradoSec = document.getElementById('graf-aux-grado').value;
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
+
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
 
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
@@ -5910,6 +5920,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
 
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
+
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
             if(loading) loading.classList.remove('d-none');
@@ -7928,6 +7943,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             let gradoSec = document.getElementById('graf-aux-grado').value;
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
+
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
 
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
@@ -9948,6 +9968,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
 
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
+
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
             if(loading) loading.classList.remove('d-none');
@@ -11966,6 +11991,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             let gradoSec = document.getElementById('graf-aux-grado').value;
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
+
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
 
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
@@ -13986,6 +14016,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
 
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
+
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
             if(loading) loading.classList.remove('d-none');
@@ -14255,16 +14290,16 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             body * { visibility: hidden; } /* Ocultar todo lo demás */
             
             /* Solo hacer visible el área de reporte seleccionada */
-            #v-reporte, #v-reporte *, #v-reporte-aux, #v-reporte-aux *, #v-reporte-docente, #v-reporte-docente * { visibility: visible; }
-            
+            #v-reporte, #v-reporte *, #v-reporte-aux, #v-reporte-aux *, #v-reporte-docente, #v-reporte-docente *, #v-grafico-auxiliar, #v-grafico-auxiliar * { visibility: visible; }
+
             /* Ajustar contenedores de reporte al origen de la página */
-            #v-reporte, #v-reporte-aux, #v-reporte-docente { 
-                position: absolute; 
-                left: 0; top: 0; 
-                width: 100%; 
-                padding: 0; margin: 0; 
-                box-shadow: none; border: none; 
-                background: white; 
+            #v-reporte, #v-reporte-aux, #v-reporte-docente, #v-grafico-auxiliar {
+                position: absolute;
+                left: 0; top: 0;
+                width: 100%;
+                padding: 0; margin: 0;
+                box-shadow: none; border: none;
+                background: white;
             }
             
             /* Ocultar barras de herramientas, menú y filtros */
@@ -14274,7 +14309,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             
             /* Cabecera oficial */
             .print-header { display: block !important; margin-bottom: 20px; page-break-after: avoid; }
-            
+
+            /* Ajuste para Gráficos */
+            #v-grafico-auxiliar .card { border: 1px solid #eee !important; break-inside: avoid; margin-bottom: 15px; }
+            #v-grafico-auxiliar canvas { max-width: 100% !important; }
+
             /* TABLAS: Forzar escala para que encajen en el ancho de la página horizontal */
             .table-responsive { 
                 overflow: visible !important; /* Desactiva el scroll en impresión */
@@ -15167,7 +15206,9 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
 
             <div id="v-qr" class="card-view vista-modulo d-none text-center">
-                
+                <!-- CONTENEDOR DE NOTIFICACIONES FLOTANTES (ESTILO TOAST) -->
+                <div id="qr-toast-container" class="position-fixed top-0 start-50 translate-middle-x w-100 p-2" style="z-index: 3000; pointer-events: none; max-width: 480px;"></div>
+
                 <div class="row justify-content-center mb-2" id="selector-entidad-escaneo">
                     <div class="col-12" style="max-width: 500px;">
                         <div class="btn-group shadow-sm w-100 mb-2" role="group">
@@ -15335,6 +15376,19 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                 <div class="d-flex justify-content-between mb-3 align-items-center flex-wrap gap-2 d-print-none">
                     <h4 class="mb-0 fw-bold text-primary"><i class="fa-solid fa-chart-pie me-2"></i> Reporte Gráfico de Asistencia de Entrada</h4>
                     <button class="btn btn-outline-primary fw-bold" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir Reporte</button>
+                </div>
+
+                <!-- CABECERA DE IMPRESIÓN (Solo visible al imprimir) -->
+                <div class="print-header d-none d-print-block mb-4">
+                    <div class="text-center mb-3">
+                        <h2 class="fw-bold text-dark mb-0">REPORTE GRÁFICO DE ASISTENCIA</h2>
+                        <h5 class="text-muted fw-bold">I.E. La Victoria</h5>
+                    </div>
+                    <div class="row border border-3 border-primary p-3 rounded mb-3 text-dark align-items-center" style="background-color: #f0f7ff;">
+                        <div class="col-6 mb-2 fs-5"><strong>Fecha Inicio:</strong> <span id="print-graf-inicio" class="fw-bold text-primary">---</span></div>
+                        <div class="col-6 mb-2 fs-5 text-end"><strong>Fecha Fin:</strong> <span id="print-graf-fin" class="fw-bold text-primary">---</span></div>
+                        <div class="col-12 fs-5"><strong>Grado y Sección:</strong> <span id="print-graf-grado" class="fw-bold text-primary">General</span></div>
+                    </div>
                 </div>
 
                 <!-- Filtros -->
@@ -17753,6 +17807,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
 
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
+
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
             if(loading) loading.classList.remove('d-none');
@@ -20156,15 +20215,20 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
         // ================= CREACIÓN DE CARNETS Y CANVAS =================
         function generarCanvasCarnet(dni, nombres, grado, seccion, nivel, fotoUrl, formato = 'horizontal', ano = '') {
             return new Promise((resolve) => {
-                let cont = document.getElementById('qr-gen-box');
-                cont.innerHTML = '';
-                new QRCode(cont, { text: dni, width: 400, height: 400, correctLevel : QRCode.CorrectLevel.H });
+                // Crear un contenedor temporal ÚNICO para este QR para evitar que se sobrescriba
+                let tempId = 'qr-temp-' + Math.random().toString(36).substr(2, 9);
+                let tempCont = document.createElement('div');
+                tempCont.id = tempId;
+                tempCont.style.display = 'none';
+                document.body.appendChild(tempCont);
 
+                new QRCode(tempCont, { text: dni, width: 400, height: 400, correctLevel : QRCode.CorrectLevel.H });
+
+                // Esperar un poco más para asegurar que el QR se renderice completamente
                 setTimeout(() => {
-                    let qrSource = cont.querySelector('canvas') || cont.querySelector('img');
+                    let qrSource = tempCont.querySelector('canvas') || tempCont.querySelector('img');
                     let canvas = document.createElement('canvas');
 
-                    // Alta Calidad (Full HD aproximado para impresión)
                     if (formato === 'vertical') { canvas.width = 1000; canvas.height = 1580; } 
                     else { canvas.width = 1580; canvas.height = 1000; }
 
@@ -20176,37 +20240,29 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                     ctx.fillStyle = "#dc3545"; ctx.fillRect(5, 5, canvas.width - 10, 150);
 
                     if (formato === 'horizontal') {
-                        // Logo Izquierda
                         let b64Logo = localStorage.getItem('logoInstBase64');
                         if(b64Logo) {
                             let imgH = new Image();
                             imgH.onload = () => { let hSize = 130; ctx.drawImage(imgH, 30, 15, hSize, hSize); };
                             imgH.src = b64Logo;
                         }
-                        // Texto Centrado
                         ctx.fillStyle = "#ffffff"; ctx.textAlign = "center"; 
                         ctx.font = "bold 85px sans-serif"; ctx.fillText("I.E. LA VICTORIA", canvas.width/2, 105);
-                        // Círculo Grado/Sec Derecha
                         if (grado !== 'Personal Docente') {
                             let cX = canvas.width - 130, cY = 75, cR = 105;
                             ctx.fillStyle = "#ffffff";
                             ctx.beginPath(); ctx.arc(cX, cY, cR, 0, Math.PI * 2); ctx.fill();
-                            
-                            // Borde para mayor contraste
                             ctx.strokeStyle = "#dc3545"; ctx.lineWidth = 4; ctx.stroke();
-
                             ctx.fillStyle = "#dc3545"; ctx.textAlign = "center";
                             let textoGradoSec = `${grado} ${seccion}`;
                             ctx.font = "bold 72px sans-serif";
                             ctx.fillText(textoGradoSec, cX, cY + 25);
                         }
                     } else {
-                        // VERTICAL ORIGINAL: Solo texto centrado
                         ctx.fillStyle = "#ffffff"; ctx.textAlign = "center"; 
                         ctx.font = "bold 70px sans-serif"; ctx.fillText("I.E. LA VICTORIA", canvas.width/2, 105);
                     }
 
-                    // --- SUB-ENCABEZADO ---
                     ctx.fillStyle = "#0d6efd"; ctx.fillRect(5, 155, canvas.width - 10, 80);
                     ctx.fillStyle = "#ffc107"; ctx.textAlign = "center"; ctx.font = "bold 44px sans-serif";
                     let textoNivel = nivel ? nivel.toUpperCase() : "EDUCACIÓN SECUNDARIA";
@@ -20222,10 +20278,8 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                                 linea1 = partesNombre.slice(0, mitad).join(' ');
                                 linea2 = partesNombre.slice(mitad).join(' ');
                             }
-
                             ctx.textAlign = "left"; ctx.fillStyle = "#333"; ctx.font = "bold 38px sans-serif";
                             ctx.fillText(grado === 'Personal Docente' ? "DOCENTE:" : "ESTUDIANTE:", 450, 350);
-                            
                             ctx.fillStyle = "#0d6efd";
                             let fontSizeH = 68; ctx.font = `bold ${fontSizeH}px sans-serif`;
                             while (fontSizeH > 20 && (ctx.measureText(linea1.toUpperCase()).width > 600 || (linea2 && ctx.measureText(linea2.toUpperCase()).width > 600))) {
@@ -20233,13 +20287,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                             }
                             ctx.fillText(linea1.toUpperCase(), 450, 420);
                             if(linea2) ctx.fillText(linea2.toUpperCase(), 450, 490);
-
                             let basePosY = linea2 ? 620 : 560;
                             ctx.fillStyle = "#333"; ctx.font = "bold 54px sans-serif";
                             ctx.fillText("DNI:", 450, basePosY);
                             ctx.fillStyle = "#000"; ctx.font = "bold 85px sans-serif";
                             ctx.fillText(dni, 580, basePosY);
-
                             if (qrSource) {
                                 let qrSize = 450; 
                                 let qrX = Math.max(1100, 450 + Math.max(ctx.measureText(linea1.toUpperCase()).width, ctx.measureText(dni).width) + 50);
@@ -20252,45 +20304,38 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                                 ctx.fillText(`PERSONAL DOCENTE`, 450, 820); 
                             }
                         } else {
-                            // VERTICAL ORIGINAL RESTAURADO
                             ctx.textAlign = "center"; ctx.font = "bold 40px sans-serif";
                             let txtEtiqueta = grado === 'Personal Docente' ? "DOCENTE:" : "ESTUDIANTE:";
                             let txtWidth = ctx.measureText(txtEtiqueta).width;
-                            
-                            // Fondo blanco con transparencia Detrás de la etiqueta
                             ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
                             ctx.fillRect(canvas.width/2 - (txtWidth/2 + 20), 725, txtWidth + 40, 50);
-                            
                             ctx.fillStyle = "#000000";
                             ctx.fillText(txtEtiqueta, canvas.width/2, 760);
-                            
                             ctx.fillStyle = "#0d6efd";
                             let fontSizeV = 55; ctx.font = `bold ${fontSizeV}px sans-serif`;
                             while (fontSizeV > 18 && ctx.measureText(nombres.toUpperCase()).width > canvas.width - 100) {
                                 fontSizeV--; ctx.font = `bold ${fontSizeV}px sans-serif`;
                             }
                             ctx.fillText(nombres.toUpperCase(), canvas.width/2, 835);
-
                             ctx.fillStyle = "#000"; ctx.font = "bold 50px sans-serif";
                             ctx.fillText("DNI: " + dni, canvas.width/2, 920);
-                            
                             if (grado !== 'Personal Docente') { 
                                 ctx.fillText(`GRADO/SEC: ${grado} "${seccion}"`, canvas.width/2, 995); 
                             } else { 
                                 ctx.fillStyle = "#dc3545"; ctx.fillText(`PERSONAL DOCENTE`, canvas.width/2, 995); 
                             }
-
                             if (qrSource) {
                                 let qrSize = 440; let qrY = 1030;
                                 ctx.fillStyle = "#fff"; ctx.fillRect((canvas.width - qrSize)/2 - 10, qrY - 10, qrSize + 20, qrSize + 20);
                                 ctx.drawImage(qrSource, (canvas.width - qrSize)/2, qrY, qrSize, qrSize);
                             }
                         }
-
-                        // Pie de Carnet (Ambos)
                         ctx.fillStyle = "#dc3545"; ctx.fillRect(5, canvas.height - 85, canvas.width - 10, 80);
                         ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.font = "bold 34px sans-serif";
                         ctx.fillText("CARNET INSTITUCIONAL", canvas.width/2, canvas.height - 30);
+                        
+                        // Eliminar el contenedor temporal del DOM
+                        document.body.removeChild(tempCont);
                         resolve(canvas);
                     };
 
@@ -20332,7 +20377,6 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                         }
                     };
 
-                    // Marca de Agua
                     let b64Logo = localStorage.getItem('logoInstBase64');
                     if(b64Logo) {
                         let imgWM = new Image();
@@ -20350,7 +20394,7 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                     } else {
                         processPhotoAndDraw();
                     }
-                }, 200);
+                }, 350); // Tiempo suficiente para el renderizado del QR
             });
         } let carnetActualParams = null;
         async function mostrarCarnetSolo(dni, nombres, grado, seccion, nivel, fotoUrl, ano = '') {
@@ -20500,31 +20544,23 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                 
                 await scanner.start({ facingMode: "environment" }, config, async (dniDecodificado) => {
                     let ahora = Date.now();
-                    if (bloqueoEscaneo) return;
-                    
                     let dniLimpio = String(dniDecodificado).trim();
-                    // Cooldown de 3 segundos solo si es exactamente el mismo DNI
-                    if (dniLimpio === ultimoDniEscaneado && (ahora - tiempoUltimoEscaneo) < 3000) return;
+                    
+                    // Cooldown ultra-corto de 1.5 segundos para el mismo DNI para máxima velocidad
+                    if (dniLimpio === ultimoDniEscaneado && (ahora - tiempoUltimoEscaneo) < 1500) return;
 
-                    bloqueoEscaneo = true;
                     ultimoDniEscaneado = dniLimpio;
                     tiempoUltimoEscaneo = ahora;
 
+                    // Feedback auditivo instantáneo sin bloqueo
                     try {
-                        // Feedback auditivo rápido
-                        if (window.AudioContext || window.webkitAudioContext) {
-                            let ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-                            let osc = ctxAudio.createOscillator(); osc.connect(ctxAudio.destination);
-                            osc.frequency.value = 1000; osc.start(); osc.stop(ctxAudio.currentTime + 0.05);
-                        }
+                        let ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
+                        let osc = ctxAudio.createOscillator(); osc.connect(ctxAudio.destination);
+                        osc.frequency.value = 1200; osc.start(); osc.stop(ctxAudio.currentTime + 0.03);
+                    } catch(e) {}
 
-                        if (scanner && typeof scanner.pause === 'function') scanner.pause();
-                        await enviarAsistencia(dniLimpio);
-                    } catch(e) {
-                        console.error("Error en proceso de escaneo:", e);
-                    } finally {
-                        bloqueoEscaneo = false;
-                    }
+                    // PROCESAR Y SUBIR EN SEGUNDO PLANO SIN PAUSAR CÁMARA
+                    enviarAsistencia(dniLimpio); 
                 });
 
                 escaneando = true;
@@ -20557,77 +20593,89 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
         function normalizarTexto(txt) { return txt ? txt.toString().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") : ""; }
 
-        async function enviarAsistencia(dni) {
-            if (!dni) { continuarEscaneo(); return; } 
+        function showScanToast(mensaje, colorClass, data = null) {
+            let container = document.getElementById('qr-toast-container');
+            if(!container) return;
             
-            // === LIMPIEZA PREVENTIVA DE DATOS ANTERIORES ===
-            document.getElementById('asis-nombres').innerText = "Cargando..."; 
-            document.getElementById('asis-nivel').innerText = ""; 
-            document.getElementById('asis-grado').innerText = ""; 
-            document.getElementById('asis-area').innerHTML = "";
-            // ===============================================
+            let toast = document.createElement('div');
+            toast.className = `alert alert-${colorClass} shadow-lg border-2 mb-2 p-2 animate__animated animate__fadeInDown`;
+            toast.style.cssText = "background-color: rgba(255,255,255,0.9); backdrop-filter: blur(5px); pointer-events: auto; border-radius: 12px; transition: all 0.5s ease;";
+            
+            let icon = 'circle-check';
+            if(colorClass === 'warning') icon = 'triangle-exclamation';
+            if(colorClass === 'danger') icon = 'circle-xmark';
+            
+            let html = `
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-${icon} fs-3 me-3 text-${colorClass}"></i>
+                    <div class="text-start flex-grow-1">
+                        <div class="fw-bold small text-uppercase" style="font-size: 0.7rem;">${mensaje}</div>
+                        <div class="fw-bold text-dark" style="font-size: 1rem; line-height: 1;">${data ? data.nombres : 'Procesando...'}</div>
+                        <div class="small text-muted" style="font-size: 0.75rem;">${data ? (data.gradoSec || '---') : ''}</div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-sm ms-2" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+            
+            toast.innerHTML = html;
+            container.prepend(toast);
+            
+            // Eliminar automáticamente tras 4 segundos
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        }
 
-            let alerta = document.getElementById('alerta-qr');
-            alerta.className = "alert alert-warning fs-5 fw-bold"; 
-            alerta.innerHTML = `<i class='fa-solid fa-spinner fa-spin'></i> Procesando DNI: ${dni}...`;
+        async function enviarAsistencia(dni) {
+            if (!dni) return; 
             
+            // === BÚSQUEDA LOCAL INSTANTÁNEA ===
+            let dniPadded = String(dni).trim().padStart(8, '0');
+            let datosLocal = null;
             let modoElement = document.querySelector('input[name="modoScanner"]:checked');
             let modo = modoElement ? modoElement.value : 'estudiante';
-            
-            let ahora = new Date();
-            let dd = String(ahora.getDate()).padStart(2, '0');
-            let mm = String(ahora.getMonth() + 1).padStart(2, '0');
-            let yyyy = ahora.getFullYear();
-            let fechaLocalExacta = dd + '/' + mm + '/' + yyyy;
-            
-            let horas = ahora.getHours();
-            let minutos = ahora.getMinutes();
-            let ampm = horas >= 12 ? 'PM' : 'AM';
-            horas = horas % 12; horas = horas ? horas : 12; 
-            let minStr = minutos < 10 ? '0' + minutos : minutos;
-            let horaLocalExacta = horas + ':' + minStr + ' ' + ampm;
 
-            // === NUEVO: VERIFICACIÓN LOCAL INSTANTÁNEA (ALTA VELOCIDAD) ===
-            let dniPadded = dni.padStart(8, '0');
+            if (modo === 'estudiante') {
+                datosLocal = (datosMemoria['Estudiantes'] || []).find(f => String(f[0]).replace(/['"]/g, '').trim().padStart(8, '0') === dniPadded);
+            } else {
+                datosLocal = (datosMemoria['Docentes'] || []).find(f => String(f[0]).replace(/['"]/g, '').trim().padStart(8, '0') === dniPadded);
+            }
+            
+            let alumnoResumen = { 
+                nombres: datosLocal ? datosLocal[1] : `DNI ${dniPadded}`, 
+                gradoSec: datosLocal ? (modo === 'estudiante' ? `${datosLocal[2]} "${datosLocal[3]}"` : 'Personal Docente') : 'Desconocido'
+            };
+
+            // === VERIFICACIÓN LOCAL DE DUPLICADOS ===
             let yaEscaneadoLocal = false;
             let hojaCheck = (modo === 'docente') ? 'Asistencia_Docentes' : 'Asistencia_Auxiliar';
             
             if (datosMemoria[hojaCheck]) {
+                let fechaHoy = new Date().toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: 'numeric' });
                 let tipoMarcaDeseada = (modo === 'docente') ? document.querySelector('input[name="tipoMarcaDocente"]:checked').value : null;
                 
                 yaEscaneadoLocal = datosMemoria[hojaCheck].some(r => {
                     let dniR = String(r[3]).replace(/['"]/g, '').trim().padStart(8, '0');
                     let fechaR = String(r[1] || "").trim();
                     if (fechaR.includes('T')) fechaR = fechaR.split('T')[0].split('-').reverse().join('/');
-                    
-                    let coincideDniYFecha = (dniR === dniPadded && fechaR === fechaLocalExacta);
-                    if (!coincideDniYFecha) return false;
-                    
-                    if (modo === 'docente') {
-                        return String(r[5]).trim() === tipoMarcaDeseada;
+                    if (dniR === dniPadded && fechaR === fechaHoy) {
+                        return (modo === 'docente') ? String(r[5]).trim() === tipoMarcaDeseada : true;
                     }
-                    return true; // Para alumnos (Auxiliar), una marca al día es suficiente para el aviso local
+                    return false;
                 });
             }
 
             if (yaEscaneadoLocal) {
-                if (window.AudioContext || window.webkitAudioContext) {
-                    let ctxA = new (window.AudioContext || window.webkitAudioContext)();
-                    let osc = ctxA.createOscillator(); osc.type = 'square'; osc.connect(ctxA.destination); osc.frequency.value = 300; osc.start(); osc.stop(ctxA.currentTime + 0.3);
-                }
-                document.getElementById('warn-mensaje').innerText = `El DNI ${dniPadded} ya registró su asistencia hoy según los datos descargados.`;
-                bootstrap.Modal.getOrCreateInstance(document.getElementById('modalYaRegistrado')).show();
-                alerta.className = "alert alert-warning text-dark fs-5 fw-bold"; alerta.innerHTML = "⚠️ Ya registrado.";
-                setTimeout(() => { bootstrap.Modal.getInstance(document.getElementById('modalYaRegistrado')).hide(); continuarEscaneo(); }, 2000);
+                showScanToast("YA REGISTRADO HOY", "warning", alumnoResumen);
                 return;
             }
-            // ==============================================================
 
             let payload = { 
                 dni: dni, rol: rolActual, usuarioDni: usuarioDniActual,
-                fecha: fechaLocalExacta, hora: horaLocalExacta,   
-                fechaEscaneo: fechaLocalExacta, horaEscaneo: horaLocalExacta,
-                timestampLocal: ahora.toISOString(), esOfflineSync: !navigator.onLine,
+                fecha: new Date().toLocaleDateString('es-PE'), 
+                timestampLocal: new Date().toISOString(), esOfflineSync: !navigator.onLine,
                 esAdmin: (rolActual === 'Administrador')
             };
             
@@ -20639,62 +20687,26 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             }
 
             if (!navigator.onLine) {
-                guardarOffline(payload, fechaLocalExacta, horaLocalExacta);
-                setTimeout(continuarEscaneo, 2000);
+                guardarOffline(payload, payload.fecha, "Hora Offline");
+                showScanToast("GUARDADO OFFLINE", "info", alumnoResumen);
                 return;
             }
 
-            let r = await fetchAPI(payload); 
-            if(r.mensaje === "NETWORK_ERROR") {
-                guardarOffline(payload, fechaLocalExacta, horaLocalExacta);
-                setTimeout(continuarEscaneo, 2000);
-                return;
-            }
-            
-            let ctx = new (window.AudioContext || window.webkitAudioContext)();
-            if(r.exito) {
-                document.getElementById('tit-exito').innerText = r.mensaje;
-                document.getElementById('asis-nombres').innerText = r.alumno.nombres; 
-                document.getElementById('asis-nivel').innerText = r.alumno.nivel; 
-                document.getElementById('asis-grado').innerText = r.alumno.gradoSec; 
-                document.getElementById('asis-area').innerHTML = r.alumno.area;
-                
-                let modalContent = document.querySelector('#modalAsistenciaExitosa .modal-content');
-                let iconExito = document.querySelector('#modalAsistenciaExitosa .modal-body i');
-                let titExito = document.getElementById('tit-exito');
-
-                if (r.mensaje && r.mensaje.toUpperCase().includes("TARDE")) {
-                    modalContent.classList.replace('border-success', 'border-warning');
-                    iconExito.className = "fa-solid fa-clock text-warning"; titExito.className = "text-warning fw-bold mb-4";
-                    let osc = ctx.createOscillator(); osc.type = 'triangle'; osc.connect(ctx.destination); osc.frequency.value = 400; osc.start(); osc.stop(ctx.currentTime + 0.3);
-                } else {
-                    modalContent.classList.replace('border-warning', 'border-success');
-                    iconExito.className = "fa-solid fa-circle-check text-success"; titExito.className = "text-success fw-bold mb-4";
-                    let osc = ctx.createOscillator(); osc.connect(ctx.destination); osc.frequency.value = 800; osc.start(); osc.stop(ctx.currentTime + 0.1);
+            // Ejecución asíncrona total: no esperamos la respuesta para dejar libre el hilo
+            fetchAPI(payload).then(r => {
+                if(r.exito) {
+                    showScanToast(r.mensaje, "success", { nombres: r.alumno.nombres, gradoSec: r.alumno.gradoSec });
+                    if (modo === 'docente') cargarTabla('Asistencia_Docentes', true, true);
+                    else { cargarTabla('Registro_Asistencia', true, true); cargarTabla('Asistencia_Auxiliar', true, true); }
+                } else if (r.tipo === 'warning') {
+                    showScanToast(r.mensaje, "warning", alumnoResumen);
+                } else { 
+                    showScanToast(r.mensaje, "danger", alumnoResumen);
                 }
-
-                bootstrap.Modal.getOrCreateInstance(document.getElementById('modalAsistenciaExitosa')).show();
-                alerta.className = "alert alert-success fs-5 fw-bold"; alerta.innerHTML = "✅ ¡Listo! Siguiente.";
-                
-                if (modo === 'docente') cargarTabla('Asistencia_Docentes', true);
-                else { cargarTabla('Registro_Asistencia', true); cargarTabla('Asistencia_Auxiliar', true); }
-
-                setTimeout(() => { bootstrap.Modal.getInstance(document.getElementById('modalAsistenciaExitosa')).hide(); continuarEscaneo(); }, 1500);
-            } else if (r.tipo === 'warning') {
-                let osc = ctx.createOscillator(); osc.type = 'square'; osc.connect(ctx.destination); osc.frequency.value = 300; osc.start(); osc.stop(ctx.currentTime + 0.3);
-                document.getElementById('warn-mensaje').innerText = r.mensaje;
-                bootstrap.Modal.getOrCreateInstance(document.getElementById('modalYaRegistrado')).show();
-                alerta.className = "alert alert-warning text-dark fs-5 fw-bold"; alerta.innerHTML = "⚠️ Ya registrado.";
-                setTimeout(() => { bootstrap.Modal.getInstance(document.getElementById('modalYaRegistrado')).hide(); continuarEscaneo(); }, 2000);
-            } else { 
-                let osc = ctx.createOscillator(); osc.type = 'sawtooth'; osc.connect(ctx.destination); osc.frequency.value = 150; osc.start(); osc.stop(ctx.currentTime + 0.4);
-                let modalFuera = bootstrap.Modal.getOrCreateInstance(document.getElementById('modalFueraHorario'));
-                document.getElementById('err-titulo').innerText = r.mensaje.includes("Feriado") ? "¡DÍA FERIADO!" : "¡Acceso Denegado!";
-                document.getElementById('err-subtitulo').innerText = r.mensaje;
-                modalFuera.show();
-                alerta.className = "alert alert-danger fs-5 fw-bold"; alerta.innerHTML = "❌ " + r.mensaje;
-                setTimeout(() => { modalFuera.hide(); continuarEscaneo(); }, 2500);
-            }
+            }).catch(e => {
+                showScanToast("Error de conexión", "danger", alumnoResumen);
+            });
+            
             document.getElementById('dni-manual').value = "";
         }
 
@@ -23341,6 +23353,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             let gradoSec = document.getElementById('graf-aux-grado').value;
 
             if(!fInicio || !fFin) return alert("Seleccione el rango de fechas.");
+
+            // Poblar cabecera de impresión
+            if(document.getElementById('print-graf-inicio')) document.getElementById('print-graf-inicio').innerText = fInicio.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-fin')) document.getElementById('print-graf-fin').innerText = fFin.split('-').reverse().join('/');
+            if(document.getElementById('print-graf-grado')) document.getElementById('print-graf-grado').innerText = gradoSec || "General (Todos los Grados)";
 
             let loading = document.getElementById('loading-grafico-aux');
             let content = document.getElementById('cont-reporte-grafico-aux');
