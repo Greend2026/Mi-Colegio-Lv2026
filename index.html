@@ -18266,11 +18266,12 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                 // Optimización: Solo cargar lo estrictamente necesario para entrar (Lazy Loading)
                 // Esto elimina la demora de 5 segundos al iniciar sesión
                 let hojasCriticas = [];
-                if(tipo === 'Administrador') hojasCriticas = ['Estudiantes']; 
-                else if(tipo === 'Docente') hojasCriticas = ['Docentes', 'Estudiantes']; 
-                else if (tipo === 'Auxiliar') hojasCriticas = ['Auxiliares', 'Estudiantes']; 
+                if(tipo === 'Administrador') hojasCriticas = ['Estudiantes', 'Registro_Asistencia', 'Asistencia_Auxiliar', 'Asistencia_Docentes'];
+                else if(tipo === 'Docente') hojasCriticas = ['Docentes', 'Estudiantes', 'Registro_Asistencia', 'Asistencia_Docentes'];
+                else if (tipo === 'Auxiliar') hojasCriticas = ['Auxiliares', 'Estudiantes', 'Asistencia_Auxiliar'];
 
                 let resultadosCriticos = await Promise.all(hojasCriticas.map(h => fetchAPI({ accion: 'obtenerDatos', hoja: h })));
+
                 for(let i=0; i<hojasCriticas.length; i++) {
                     if(resultadosCriticos[i].exito) datosMemoria[hojasCriticas[i]] = resultadosCriticos[i].datos || [];
                     else datosMemoria[hojasCriticas[i]] = [];
@@ -18284,9 +18285,9 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
                 // Cargar el resto en segundo plano (Background Loading) para no bloquear al usuario
                 let hojasBackground = [];
-                if(tipo === 'Administrador') hojasBackground = ['Administradores', 'Docentes', 'Auxiliares', 'Areas', 'Horarios', 'Horario_Docentes', 'Feriados', 'Registro_Asistencia', 'Asistencia_Auxiliar', 'Asistencia_Docentes', 'Incidencias', 'Permisos'];
-                else if(tipo === 'Docente') hojasBackground = ['Asistencia_Docentes', 'Incidencias', 'Areas', 'Horarios', 'Registro_Asistencia', 'Permisos'];
-                else if (tipo === 'Auxiliar') hojasBackground = ['Asistencia_Auxiliar', 'Incidencias', 'Areas', 'Horarios', 'Registro_Asistencia', 'Permisos'];
+                if(tipo === 'Administrador') hojasBackground = ['Administradores', 'Docentes', 'Auxiliares', 'Areas', 'Horarios', 'Horario_Docentes', 'Feriados', 'Incidencias', 'Permisos'];
+                else if(tipo === 'Docente') hojasBackground = ['Incidencias', 'Areas', 'Horarios', 'Permisos'];
+                else if (tipo === 'Auxiliar') hojasBackground = ['Incidencias', 'Areas', 'Horarios', 'Registro_Asistencia', 'Permisos'];
 
                 // Carga de datos y logo en paralelo sin bloquear la interfaz
                 Promise.all([
@@ -20677,7 +20678,7 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                 gradoSec: datosLocal ? (modo === 'estudiante' ? `${datosLocal[2]} "${datosLocal[3]}"` : 'Personal Docente') : 'Desconocido'
             };
 
-            // === VERIFICACIÓN LOCAL DE DUPLICADOS ===
+            // === VERIFICACIÓN LOCAL DE DUPLICADOS (ANALIZA BASE DE DATOS ANTES DE REGISTRAR) ===
             let yaEscaneadoLocal = false;
             let hojaCheck = 'Asistencia_Auxiliar'; // Por defecto
             
