@@ -20534,6 +20534,7 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
         let scanner = null, escaneando = false, bloqueoEscaneo = false;
         let ultimoDniEscaneado = ""; let tiempoUltimoEscaneo = 0;
+        let dnisEnProceso = new Set();
 
         async function iniciarCamara() {
             if (escaneando) return;
@@ -20545,9 +20546,13 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                 await scanner.start({ facingMode: "environment" }, config, async (dniDecodificado) => {
                     let ahora = Date.now();
                     let dniLimpio = String(dniDecodificado).trim();
+                    let dniPadded = dniLimpio.padStart(8, '0');
                     
                     // Cooldown ultra-corto de 1.5 segundos para el mismo DNI para máxima velocidad
                     if (dniLimpio === ultimoDniEscaneado && (ahora - tiempoUltimoEscaneo) < 1500) return;
+                    
+                    // Bloqueo si ya está en proceso de envío
+                    if (dnisEnProceso.has(dniPadded)) return;
 
                     ultimoDniEscaneado = dniLimpio;
                     tiempoUltimoEscaneo = ahora;
@@ -20633,6 +20638,11 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             
             // === BÚSQUEDA LOCAL INSTANTÁNEA ===
             let dniPadded = String(dni).trim().padStart(8, '0');
+            
+            // Evitar re-envío si ya está en proceso
+            if (dnisEnProceso.has(dniPadded)) return;
+            dnisEnProceso.add(dniPadded);
+
             let datosLocal = null;
             let modoElement = document.querySelector('input[name="modoScanner"]:checked');
             let modo = modoElement ? modoElement.value : 'estudiante';
@@ -20653,13 +20663,28 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             let hojaCheck = (modo === 'docente') ? 'Asistencia_Docentes' : 'Asistencia_Auxiliar';
             
             if (datosMemoria[hojaCheck]) {
-                let fechaHoy = new Date().toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                // Normalizar fecha hoy para comparación robusta
+                let hoy = new Date();
+                let dia = String(hoy.getDate()).padStart(2, '0');
+                let mes = String(hoy.getMonth() + 1).padStart(2, '0');
+                let anio = hoy.getFullYear();
+                let fechaHoy = `${dia}/${mes}/${anio}`;
+                
                 let tipoMarcaDeseada = (modo === 'docente') ? document.querySelector('input[name="tipoMarcaDocente"]:checked').value : null;
                 
                 yaEscaneadoLocal = datosMemoria[hojaCheck].some(r => {
                     let dniR = String(r[3]).replace(/['"]/g, '').trim().padStart(8, '0');
                     let fechaR = String(r[1] || "").trim();
-                    if (fechaR.includes('T')) fechaR = fechaR.split('T')[0].split('-').reverse().join('/');
+                    if (fechaR.includes('T')) {
+                        let pts = fechaR.split('T')[0].split('-');
+                        fechaR = `${pts[2]}/${pts[1]}/${pts[0]}`;
+                    }
+                    // Normalizar formato D/M/YYYY a DD/MM/YYYY
+                    if (fechaR.includes('/')) {
+                        let parts = fechaR.split('/');
+                        if (parts.length === 3) fechaR = parts[0].padStart(2, '0') + '/' + parts[1].padStart(2, '0') + '/' + parts[2];
+                    }
+
                     if (dniR === dniPadded && fechaR === fechaHoy) {
                         return (modo === 'docente') ? String(r[5]).trim() === tipoMarcaDeseada : true;
                     }
@@ -20669,6 +20694,7 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
 
             if (yaEscaneadoLocal) {
                 showScanToast("YA REGISTRADO HOY", "warning", alumnoResumen);
+                dnisEnProceso.delete(dniPadded);
                 return;
             }
 
@@ -20689,6 +20715,7 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
             if (!navigator.onLine) {
                 guardarOffline(payload, payload.fecha, "Hora Offline");
                 showScanToast("GUARDADO OFFLINE", "info", alumnoResumen);
+                dnisEnProceso.delete(dniPadded);
                 return;
             }
 
@@ -20705,6 +20732,9 @@ async function descargarConsolidadoIncidenciasPDF(dni, fInicio, fFin) {
                 }
             }).catch(e => {
                 showScanToast("Error de conexión", "danger", alumnoResumen);
+            }).finally(() => {
+                // Pequeño delay antes de permitir re-escaneo para evitar ráfagas por rebote de red
+                setTimeout(() => dnisEnProceso.delete(dniPadded), 1000);
             });
             
             document.getElementById('dni-manual').value = "";
